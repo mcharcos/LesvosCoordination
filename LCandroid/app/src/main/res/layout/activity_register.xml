@@ -26,9 +26,20 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="Password"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/etpassword"
+        android:inputType="textPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"/>
+
     <Button
-        android:id="@+id/blogout"
-        android:text="Logout"
+        android:id="@+id/bregister"
+        android:text="Register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
