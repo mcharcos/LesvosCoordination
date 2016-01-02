@@ -9,12 +9,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.loginregister.User;
 import com.example.loginregister.Login;
+import com.example.loginregister.UserLocalStore;
 
 public class MainActivity extends ActionBarActivity  implements View.OnClickListener{
 
     Button blogout;
     EditText etname, etusername;
+    UserLocalStore userLocalStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +26,33 @@ public class MainActivity extends ActionBarActivity  implements View.OnClickList
 
         etname = (EditText) findViewById(R.id.etname);
         etusername = (EditText) findViewById(R.id.etusername);
-        blogout= (Button) findViewById(R.id.blogin);
+        blogout= (Button) findViewById(R.id.blogout);
 
         blogout.setOnClickListener(this);
+
+        userLocalStore = new UserLocalStore(this);
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+
+        if (authenticate() == true){
+            displayUserDetails();
+        } else {
+            startActivity(new Intent(MainActivity.this,Login.class));
+        }
+    }
+
+    private boolean authenticate(){
+        return userLocalStore.getUserLoggedIn();
+    }
+
+    private void displayUserDetails(){
+        User user = userLocalStore.getLoggedInUser();
+
+        etname.setText(user.getName());
+        etusername.setText(user.getUsername());
     }
 
     /* I removed this based on the login-register tutorial at https://www.youtube.com/watch?v=x0I5vJfaRIU
@@ -58,8 +85,10 @@ public class MainActivity extends ActionBarActivity  implements View.OnClickList
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.blogout:
+                userLocalStore.clearUserData();
+                userLocalStore.setUserLoggedIn(false);
 
-                startActivity(new Intent(this,Login.class));
+                startActivity(new Intent(this, Login.class));
 
                 break;
         }
