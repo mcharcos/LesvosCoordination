@@ -1,5 +1,5 @@
 <?php
-    $con=mysqli_connect("localhost","u366371143_lc","K7FO6cIs3J","u366371143_lc");
+    $con=mysqli_connect("mysql.hostinger.co.uk","u366371143_lc","K7FO6cIs3J","u366371143_lc");
     
     $username = $_POST["username"];
     $password = $_POST["password"];
