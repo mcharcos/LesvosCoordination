@@ -4,12 +4,12 @@
     $username = $_POST["username"];
     $password = $_POST["password"];
     
-    $statement = mysqli_prepare($con,"SELECT * FROM User WHERE username ? AND password = ?");
+    $statement = mysqli_prepare($con,"SELECT * FROM User WHERE username = ? AND password = ?");
     mysqli_stmt_bind_param($statement,"ss",$username,$password);
     mysqli_stmt_execute($statement);
     
     mysqli_stmt_store_result($statement);
-    mysqli_stmt_bind_results($statement,$user_id, $name,$username,$password);
+    mysqli_stmt_bind_result($statement, $userID, $name, $username, $password);
     
     $user = array();
     
@@ -19,7 +19,7 @@
         $user[passsword] = $password;
     }
     
-    echo json_decode($user);
+    echo json_encode($user);
     mysqli_stmt_close($statement);
 
     
